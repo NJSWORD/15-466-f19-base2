@@ -27,10 +27,9 @@ struct MenuMode : Mode {
 			std::string const &name_,
 			Sprite const *sprite_ = nullptr,
 			float scale_ = 1.0f,
-			glm::u8vec4 const &tint_ = glm::u8vec4(0xff),
 			std::function< void(Item const &) > const &on_select_ = nullptr,
 			glm::vec2 const &at_ = glm::vec2(0.0f)
-			) : name(name_), sprite(sprite_), scale(scale_), tint(tint_), selected_tint(tint_), on_select(on_select_), at(at_) {
+			) : name(name_), sprite(sprite_), scale(scale_), on_select(on_select_), at(at_) {
 		}
 		std::string name;
 		Sprite const *sprite; //sprite drawn for item

@@ -20,12 +20,21 @@ struct StoryMode : Mode {
 
 	//------ story state -------
 	enum {
-		Dunes,
-		Oasis,
-		Hill
-	} location = Dunes;
-	bool have_stone = false;
-	bool added_stone = false;
+		Store,
+		Room
+	} location = Room;
+	enum {
+		CPU,
+		GPU,
+		PL
+	} Type;
+	bool have_GPU = false;
+	bool have_CPU = false;
+	bool have_PL = false;
+	bool have_PC = false;
+	bool build_res = false;
+	bool correct = false;
+	bool wrong = false;
 	struct {
 		bool first_visit = true;
 		bool wont_leave = false;
@@ -40,8 +49,6 @@ struct StoryMode : Mode {
 	} hill;
 	
 	glm::vec2 view_min = glm::vec2(0,0);
-	glm::vec2 view_max = glm::vec2(256, 224);
-
-	//------ background music -------
+	glm::vec2 view_max = glm::vec2(1920, 1080);
 	std::shared_ptr< Sound::PlayingSample > background_music;
 };

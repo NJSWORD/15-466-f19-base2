@@ -151,7 +151,7 @@ void step_value_ramp(Sound::Ramp< float > &ramp) {
 	if (ramp.ramp < RAMP_STEP) {
 		ramp.value = ramp.target;
 		ramp.ramp = 0.0f;
-	} else {
+	} else { 
 		ramp.value += (RAMP_STEP / ramp.ramp) * (ramp.target - ramp.value);
 		ramp.ramp -= RAMP_STEP;
 	}
