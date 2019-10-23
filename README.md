@@ -43,6 +43,8 @@ For 6, I found "the images displayed on this site may be used for Free or educat
 5 https://github.com/FortAwesome/Font-Awesome/issues/12990
 6 https://menduk.org/?img=https%3A%2F%2Fd2v9y0dukr6mq2.cloudfront.net%2Fvideo%2Fthumbnail%2FQIAQ9Rd%2Fvideoblocks-cartoon-woman-workspace-office-desk-drawers-cactus-and-calendar-speech-bubble-animation-hd_s0yqrlk3f_thumbnail-full01.png
 
+7 https://www.pngfly.com/png-xiwd0v/download.html
+8 http://wallpaperesque.com/image/1405
 Sounds Sources:
 1 https://freesound.org/people/YellowTree/sounds/483907/
 2 https://freesound.org/people/nowism/sounds/484477/

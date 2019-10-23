@@ -13,6 +13,7 @@ Sprite const *sprite_left_select = nullptr;
 Sprite const *sprite_main_bg = nullptr;
 Sprite const *sprite_store_bg = nullptr;
 Sprite const *sprite_base_bg = nullptr;
+Sprite const *sprite_black_bg = nullptr;
 Sprite const *sprite_cpu_bg = nullptr;
 Sprite const *sprite_gpu_bg = nullptr;
 Sprite const *sprite_pl_bg = nullptr;
@@ -41,6 +42,7 @@ Load< SpriteAtlas > sprites(LoadTagDefault, []() -> SpriteAtlas const * {
 	sprite_main_bg = &ret->lookup("main-bg");
 	sprite_store_bg = &ret->lookup("mall-bg");
 	sprite_base_bg = &ret->lookup("base-bg");
+	sprite_black_bg = &ret->lookup("black-bg");
 	sprite_cpu_bg = &ret->lookup("cpu-bg");
 	sprite_gpu_bg = &ret->lookup("gpu-bg");
 	sprite_pl_bg = &ret->lookup("power-bg");
@@ -273,7 +275,7 @@ void StoryMode::draw(glm::uvec2 const &drawable_size) {
 		}
 		else if (location == Store) {
 			if (move_remained > 0 && dir != 0) {
-				draw.draw(*sprite_base_bg, ul);
+				draw.draw(*sprite_black_bg, ul);
 				if (dir == 1) {
 					ast_y++;
 				} else if (dir == 2) {
@@ -289,7 +291,7 @@ void StoryMode::draw(glm::uvec2 const &drawable_size) {
 			} else {
 				dir = 0;
 				move_remained = 100;
-				draw.draw(*sprite_base_bg, ul);
+				draw.draw(*sprite_black_bg, ul);
 				ul = glm::vec2(view_min.x + ast_x, view_max.y + ast_y);
 				draw.draw(*sprite_astronaut_bg, ul);
 			}
