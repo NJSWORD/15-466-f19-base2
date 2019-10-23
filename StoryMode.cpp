@@ -17,6 +17,7 @@ Sprite const *sprite_cpu_bg = nullptr;
 Sprite const *sprite_gpu_bg = nullptr;
 Sprite const *sprite_pl_bg = nullptr;
 Sprite const *sprite_pc_bg = nullptr;
+Sprite const *sprite_astronaut_bg = nullptr;
 
 Sprite const *room_text = nullptr;
 Sprite const *return_room_text = nullptr;
@@ -44,6 +45,7 @@ Load< SpriteAtlas > sprites(LoadTagDefault, []() -> SpriteAtlas const * {
 	sprite_gpu_bg = &ret->lookup("gpu-bg");
 	sprite_pl_bg = &ret->lookup("power-bg");
 	sprite_pc_bg = &ret->lookup("pc-bg");
+	sprite_astronaut_bg = &ret->lookup("astronaut-bg");
 
 	room_text = &ret->lookup("room-text");
 	return_room_text = &ret->lookup("return-room-text");
@@ -79,9 +81,29 @@ StoryMode::StoryMode() {
 StoryMode::~StoryMode() {
 }
 
-bool StoryMode::handle_event(SDL_Event const &, glm::uvec2 const &window_size) {
-	if (Mode::current.get() != this) return false;
-
+bool StoryMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size) {
+	// std::cout<<"storymode\n";
+	// if (Mode::current.get() != this) return false;
+	// std::cout<<evt.type<<" evt_type\n";
+	if (evt.type == SDL_KEYDOWN) {
+		if (dir != 0) return true;;
+		if (evt.key.keysym.sym == SDLK_UP) {
+			dir = 1;
+			move_remained = 100;
+			return true;
+		} else if (evt.key.keysym.sym == SDLK_DOWN) {
+			dir = 2;
+			move_remained = 100;
+			return true;
+		} else if (evt.key.keysym.sym == SDLK_RETURN) {
+		} else if (evt.key.keysym.sym == SDLK_LEFT) {
+			dir = 3;
+			move_remained = 100;
+		} else if (evt.key.keysym.sym == SDLK_RIGHT) {
+			dir = 4;
+			move_remained = 100;
+		}
+	}
 	return false;
 }
 
@@ -164,6 +186,7 @@ void StoryMode::enter_scene() {
 	} else {
 		if (Type == CPU) {
 			add_choice(buy_cpu_text, [this](MenuMode::Item const &){
+				std::cout<<"item.name"<<std::endl;
 				location = Room;
 				if (have_CPU) {
 					wrong = true;
@@ -249,8 +272,27 @@ void StoryMode::draw(glm::uvec2 const &drawable_size) {
 			}
 		}
 		else if (location == Store) {
-			draw.draw(*sprite_base_bg, ul);
-			draw.draw(*sprite_store_bg, ul);
+			if (move_remained > 0 && dir != 0) {
+				draw.draw(*sprite_base_bg, ul);
+				if (dir == 1) {
+					ast_y++;
+				} else if (dir == 2) {
+					ast_y--;
+				} else if (dir == 3) {
+					ast_x--;
+				} else if (dir == 4) {
+					ast_x++;
+				}
+				ul = glm::vec2(view_min.x + ast_x, view_max.y + ast_y);
+				draw.draw(*sprite_astronaut_bg, ul);
+				move_remained--;
+			} else {
+				dir = 0;
+				move_remained = 100;
+				draw.draw(*sprite_base_bg, ul);
+				ul = glm::vec2(view_min.x + ast_x, view_max.y + ast_y);
+				draw.draw(*sprite_astronaut_bg, ul);
+			}
 		}
 	}
 	GL_ERRORS(); //did the DrawSprites do something wrong?

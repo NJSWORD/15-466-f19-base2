@@ -57,8 +57,12 @@ MenuMode::~MenuMode() {
 }
 
 bool MenuMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size) {
+	// std::cout<<"menumode\n";
+	// std::cout<<evt.type<<" evt_type\n";
 	if (evt.type == SDL_KEYDOWN) {
+		std::cout<<evt.key.keysym.sym<<"\n";
 		if (evt.key.keysym.sym == SDLK_UP) {
+			// std::cout<<"up\n";
 			//skip non-selectable items:
 			for (uint32_t i = selected - 1; i < items.size(); --i) {
 				if (items[i].on_select) {
@@ -67,8 +71,9 @@ bool MenuMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 					break;
 				}
 			}
-			return true;
+			// return true;
 		} else if (evt.key.keysym.sym == SDLK_DOWN) {
+			// std::cout<<"down\n";
 			//note: skips non-selectable items:
 			for (uint32_t i = selected + 1; i < items.size(); ++i) {
 				if (items[i].on_select) {
@@ -77,12 +82,13 @@ bool MenuMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 					break;
 				}
 			}
-			return true;
+			// return true;
 		} else if (evt.key.keysym.sym == SDLK_RETURN) {
+			// std::cout<<"return\n";
 			if (selected < items.size() && items[selected].on_select) {
 				items[selected].on_select(items[selected]);
 					Sound::play(*sound_clonk);
-				return true;
+				// return true;
 			}
 		}
 	}
