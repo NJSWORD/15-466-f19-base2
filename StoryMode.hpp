@@ -22,7 +22,7 @@ struct StoryMode : Mode {
 	enum {
 		Store,
 		Room
-	} location = Room;
+	} location = Store;
 	enum {
 		CPU,
 		GPU,

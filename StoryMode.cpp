@@ -33,7 +33,6 @@ Sprite const *build_text = nullptr;
 Sprite const *warn_text = nullptr;
 Sprite const *success_text = nullptr;
 
-
 Load< SpriteAtlas > sprites(LoadTagDefault, []() -> SpriteAtlas const * {
 	SpriteAtlas const *ret = new SpriteAtlas(data_path("computer"));
 
@@ -84,9 +83,9 @@ StoryMode::~StoryMode() {
 }
 
 bool StoryMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size) {
-	// std::cout<<"storymode\n";
+	std::cout<<"storymode\n";
 	// if (Mode::current.get() != this) return false;
-	// std::cout<<evt.type<<" evt_type\n";
+	std::cout<<evt.type<<" evt_type\n";
 	if (evt.type == SDL_KEYDOWN) {
 		if (dir != 0) return true;;
 		if (evt.key.keysym.sym == SDLK_UP) {
@@ -133,15 +132,13 @@ void StoryMode::enter_scene() {
 	glm::vec2 at(3.0f, view_max.y - 13.0f);
 	auto add_text = [&items,&at](Sprite const *text) {
 		assert(text);
-		items.emplace_back("", text, 1.0f, nullptr, at);
+		items.emplace_back("");
 		at.y -= text->max_px.y - text->min_px.y;
 		at.y -= 4.0f;
 	};
 	auto add_choice = [&items,&at](Sprite const *text, std::function< void(MenuMode::Item const &) > const &fn) {
 		assert(text);
-		items.emplace_back("", text, 1.0f, fn, at + glm::vec2(8.0f, 0.0f));
-		// items.emplace_back("TEST 3", nullptr, 1.0f, fn, at + glm::vec2(8.0f, 0.0f));
-		// items.emplace_back("TEST 4", nullptr, 1.0f, fn, at + glm::vec2(8.0f, 0.0f));
+		items.emplace_back("");
 		at.y -= text->max_px.y - text->min_px.y;
 		at.y -= 4.0f;
 	};
@@ -188,7 +185,6 @@ void StoryMode::enter_scene() {
 	} else {
 		if (Type == CPU) {
 			add_choice(buy_cpu_text, [this](MenuMode::Item const &){
-				std::cout<<"item.name"<<std::endl;
 				location = Room;
 				if (have_CPU) {
 					wrong = true;
